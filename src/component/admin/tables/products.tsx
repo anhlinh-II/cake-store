@@ -1,6 +1,7 @@
 import { Button, Space, Table, TableProps } from "antd";
 import UpdateProductModal from "../../modal/product.modal.update";
 import { useState } from "react";
+import DeleteProductModal from "../../modal/product.modal.delete";
 
 interface IProduct {
      key: string;
@@ -34,6 +35,18 @@ const Product = () => {
 
      const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
      const [updateProductData, setUpdateProductData] = useState<IProduct>(
+          {
+               key: '',
+               name: '',
+               price: 0,
+               stock: 0,
+               sold: 0,
+               description: "",
+          }
+     )
+
+     const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
+     const [deleteProductData, setDeleteProductData] = useState<IProduct>(
           {
                key: '',
                name: '',
@@ -93,10 +106,12 @@ const Product = () => {
 
      const handleUpdate = (product: IProduct) => {
           setShowUpdateModal(true)
+          setUpdateProductData(product)
      }
 
      const handleDelete = (product: IProduct) => {
-
+          setShowDeleteModal(true);
+          setDeleteProductData(product);
      }
 
      return (
@@ -106,6 +121,11 @@ const Product = () => {
                     setShow={setShowUpdateModal}
                     show={showUpdateModal}
                     data={updateProductData}
+               />
+               <DeleteProductModal
+                    show={showDeleteModal}
+                    setShow={setShowDeleteModal}
+                    data={deleteProductData}
                />
           </div>
      )
