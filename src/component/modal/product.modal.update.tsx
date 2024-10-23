@@ -117,21 +117,28 @@ const UpdateProductModal = (props: IProps) => {
                               <Input disabled value={data.key} />
                          </Form.Item>
 
-                         <Form.Item label="Name" name="name" rules={[{ required: true }]}>
-                              <Input onChange={handleOnChange} value={data.name} />
-                         </Form.Item>
+                         <div className="flex w-full justify-between gap-2">
 
-                         <Form.Item label="Price" name="price" rules={[{ required: true }]}>
-                              <Input onChange={handleOnChange} value={data.price} />
-                         </Form.Item>
 
-                         <Form.Item label="Stock" name="stock" rules={[{ required: true}]}>
-                              <Input onChange={handleOnChange} value={data.stock} />
-                         </Form.Item>
+                              <Form.Item className="w-1/2" label="Name" name="name" rules={[{ required: true }]}>
+                                   <Input onChange={handleOnChange} value={data.name} />
+                              </Form.Item>
+                              <Form.Item className="w-1/2" label="Price" name="price" rules={[{ required: true }]}>
+                                   <Input onChange={handleOnChange} value={data.price} />
+                              </Form.Item>
+                         </div>
 
-                         <Form.Item label="Sold" name="sold" rules={[{ required: true }]}>
-                              <Input onChange={handleOnChange} value={data.sold} />
-                         </Form.Item>
+
+                         <div className="flex justify-between gap-2 w-full">
+                              <Form.Item className="w-1/2" label="Stock" name="stock" rules={[{ required: true }]}>
+                                   <Input onChange={handleOnChange} value={data.stock} />
+                              </Form.Item>
+
+                              <Form.Item className="w-1/2" label="Sold" name="sold" rules={[{ required: true }]}>
+                                   <Input onChange={handleOnChange} value={data.sold} />
+                              </Form.Item>
+                         </div>
+
 
                          <Form.Item label="Description" name="description" rules={[{ required: true }]}>
                               <Input onChange={handleOnChange} value={data.description} />

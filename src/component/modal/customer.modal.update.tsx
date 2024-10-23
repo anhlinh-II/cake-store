@@ -113,21 +113,25 @@ const UpdateCustomerModal = (props: IProps) => {
                               <Input disabled value={data.key} />
                          </Form.Item>
 
-                         <Form.Item label="Name" name="name" rules={[{ required: true }]}>
-                              <Input onChange={handleOnChange} value={data.name} />
-                         </Form.Item>
+                         <div className="flex gap-2 w-full justify-between">
+                              <Form.Item className="w-1/2" label="Name" name="name" rules={[{ required: true }]}>
+                                   <Input onChange={handleOnChange} value={data.name} />
+                              </Form.Item>
 
-                         <Form.Item label="Phone" name="phone" rules={[{ required: true }]}>
-                              <Input onChange={handleOnChange} value={data.phone} />
-                         </Form.Item>
+                              <Form.Item className="w-1/2" label="Phone" name="phone" rules={[{ required: true }]}>
+                                   <Input onChange={handleOnChange} value={data.phone} />
+                              </Form.Item>
+                         </div>
 
-                         <Form.Item label="Email" name="email" rules={[{ required: true, type: 'email' }]}>
-                              <Input onChange={handleOnChange} value={data.email} />
-                         </Form.Item>
+                         <div className="flex gap-2 w-full justify-between">
+                              <Form.Item className="w-1/2" label="Email" name="email" rules={[{ required: true, type: 'email' }]}>
+                                   <Input onChange={handleOnChange} value={data.email} />
+                              </Form.Item>
 
-                         <Form.Item label="Address" name="address" rules={[{ required: true }]}>
-                              <Input onChange={handleOnChange} value={data.address} />
-                         </Form.Item>
+                              <Form.Item className="w-1/2" label="Address" name="address" rules={[{ required: true }]}>
+                                   <Input onChange={handleOnChange} value={data.address} />
+                              </Form.Item>
+                         </div>
 
                          <Form.Item>
                               <Button type="primary" htmlType="submit" className="w-full">
