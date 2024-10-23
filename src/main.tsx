@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 import App from './App';
 import Home from './component/home/home';
-import Product from './component/home/product';
 import Store from './component/home/store';
 import Admin from './component/admin/admin';
 import Customers from './component/admin/tables/customer';
@@ -15,6 +14,7 @@ import Order from './component/admin/tables/orders';
 import Payment from './component/admin/tables/payment';
 import Review from './component/admin/tables/reviews';
 import Supplier from './component/admin/tables/supplier';
+import Product from './component/admin/tables/products';
 
 const router = createBrowserRouter([
   {

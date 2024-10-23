@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { FaAngleDown, FaAngleRight } from "react-icons/fa";
-import { IoIosAddCircle, IoMdSettings } from "react-icons/io";
-import { IoHome, IoLogOut, IoPersonCircle } from "react-icons/io5";
-import { MdManageAccounts } from "react-icons/md";
+import { IoMdSettings } from "react-icons/io";
+import { IoLogOut, IoPersonCircle, IoPersonSharp, IoStorefrontSharp } from "react-icons/io5";
+import { MdAttachMoney, MdLocalShipping, MdManageAccounts, MdOutlineRateReview } from "react-icons/md";
 import { PiVideoFill } from "react-icons/pi";
+import { RiProductHuntFill, RiShipFill } from "react-icons/ri";
 import { Menu, MenuItem, Sidebar, sidebarClasses } from "react-pro-sidebar";
 import { Link } from "react-router-dom";
 
 const SideBar = () => {
      const [active, setActive] = useState<string>("customer")
      return (
-          <div 
+          <div
           // style={{position: "fixed", top: "0", left: "0"}}
           >
                <Sidebar
@@ -64,52 +65,52 @@ const SideBar = () => {
                               rootStyles={{ padding: "5px" }}
                               active={active === "customer" ? true : false}
                               component={<Link to={'/admin/customers'} />}
-                              icon={<IoHome />}
+                              icon={<IoPersonSharp />}
                               onClick={() => setActive("customer")}
                          >
                               Customer
+                         </MenuItem>
+                         <MenuItem
+                              active={active === "product" ? true : false}
+                              onClick={() => setActive("product")}
+                              rootStyles={{ padding: "5px" }}
+                              icon={<RiProductHuntFill />}
+                              component={<Link to={'/admin/products'} />}
+                         >
+                              Products
+                         </MenuItem>
+                         <MenuItem
+                              rootStyles={{ padding: "5px" }}
+                              active={active === "setting" ? true : false}
+                              onClick={() => setActive("setting")}
+                              icon={<MdOutlineRateReview />}
+                              component={<Link to={'/admin/reviews'} />}
+                         >
+                              Reviews
                          </MenuItem>
                          <MenuItem
                               active={active === "reels" ? true : false}
                               onClick={() => setActive("reels")}
                               rootStyles={{ padding: "5px" }}
                               component={<Link to={'/admin/orders'} />}
-                              icon={<PiVideoFill />}
+                              icon={<MdLocalShipping />}
                          >
                               Orders
-                         </MenuItem>
-                         <MenuItem
-                              active={active === "product" ? true : false}
-                              onClick={() => setActive("product")}
-                              rootStyles={{ padding: "5px" }}
-                              icon={<IoIosAddCircle />}
-                              component={<Link to={'/admin/products'} />}
-                         >
-                              Products
                          </MenuItem>
                          <MenuItem
                               active={active === "profile" ? true : false}
                               onClick={() => setActive("profile")}
                               rootStyles={{ padding: "5px" }}
                               component={<Link to={'/admin/payments'} />}
-                              icon={<IoPersonCircle />}
+                              icon={<MdAttachMoney />}
                          >
                               Payments
                          </MenuItem>
                          <MenuItem
                               rootStyles={{ padding: "5px" }}
-                              active={active === "setting" ? true : false}
-                              onClick={() => setActive("setting")}
-                              icon={<IoMdSettings />}
-                              component={<Link to={'/admin/reviews'} />}
-                         >
-                              Reviews
-                         </MenuItem>
-                         <MenuItem
-                              rootStyles={{ padding: "5px" }}
                               active={active === "admin" ? true : false}
                               onClick={() => setActive("admin")}
-                              icon={<MdManageAccounts />}
+                              icon={<IoStorefrontSharp />}
                               component={<Link to={'/admin/stores'} />}
                          >
                               Store
@@ -119,7 +120,7 @@ const SideBar = () => {
                               active={active === "logout" ? true : false}
                               onClick={() => setActive("logout")}
                               component={<Link to={'/admin/suppliers'} />}
-                              icon={<IoLogOut />}
+                              icon={<RiShipFill />}
                          >
                               Suppliers
                          </MenuItem>

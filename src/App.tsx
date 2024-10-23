@@ -7,7 +7,7 @@ function App() {
     <>
       <div className="w-full">
 
-        <div className='fixed top-0 left-0 right-0'>
+        <div className='fixed z-50 top-0 left-0 right-0'>
           <Header />
         </div>
         <div className='mt-14'>
