@@ -1,37 +1,43 @@
 import { Button, Space, Table, TableProps } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import UpdateCustomerModal from "../../modal/customer.modal.update";
 import DeleteCustomerModal from "../../modal/customer.modal.delete";
 import { IoMdAdd } from "react-icons/io";
 import CreateCustomerModal from "../../modal/customer.modal.create";
+import { getAllCustomers } from "../../../api";
 
 interface DataType {
-  key: string;
+  customerId: string;
   name: string;
   phone: string;
   address: string;
   email: string;
 }
-const data: DataType[] = [
-  {
-    key: '1',
-    name: 'Mike',
-    phone: "0837421572",
-    email: "mike@gmail.com",
-    address: '10 Downing Street',
-  },
-  {
-    key: '2',
-    name: 'John',
-    phone: "0944580681",
-    email: "john@gmail.com",
-    address: '10 Downing Street',
-  },
-];
+
 const Customers = () => {
+
+  const [customers, setCustomers] = useState<DataType[]>(
+    [
+      // {
+      //   customerId: '1',
+      //   name: 'Mike',
+      //   phone: "0837421572",
+      //   email: "mike@gmail.com",
+      //   address: '10 Downing Street',
+      // },
+      // {
+      //   customerId: '2',
+      //   name: 'Johnson',
+      //   phone: "0944580681",
+      //   email: "john@gmail.com",
+      //   address: '10 Downing Street',
+      // },
+    ]
+  )
+
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState<DataType>({
-    key: '',
+    customerId: '',
     name: '',
     phone: "",
     email: "",
@@ -41,7 +47,7 @@ const Customers = () => {
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const [deletedCCustomer, setDeletedCustomer] = useState<DataType>(
     {
-      key: '',
+      customerId: '',
       name: '',
       phone: "",
       email: "",
@@ -53,8 +59,8 @@ const Customers = () => {
   const columns: TableProps<DataType>['columns'] = [
     {
       title: 'ID',
-      dataIndex: 'key',
-      key: 'key',
+      dataIndex: 'customerId',
+      key: 'customerId',
     },
     {
       title: 'Name',
@@ -91,6 +97,21 @@ const Customers = () => {
       ),
     },
   ];
+
+  useEffect(() => {
+    const fetchCustomers = async () => {
+      try {
+        const response = await getAllCustomers();
+        console.log(response)
+        setCustomers(response.result.content); // Assuming response.data contains the customer array
+        console.log("customers >> ", customers);
+      } catch (error) {
+        console.error("Failed to fetch customers:", error);
+      }
+    };
+    fetchCustomers();
+  }, [])
+
   const handleUpdate = (customer: DataType) => {
     setIsModalVisible(true);
     setSelectedCustomer(customer)
@@ -112,7 +133,7 @@ const Customers = () => {
           <span className="font-semibold">Total customers: <span className="text-sky-600">3000</span></span>
           <Button onClick={() => handleCreate()} variant="solid" color="primary"><span><IoMdAdd /></span>Create Customer</Button>
         </div>
-        <Table dataSource={data} columns={columns} />
+        <Table dataSource={customers} columns={columns} />
       </div>
       <UpdateCustomerModal
         show={isModalVisible}

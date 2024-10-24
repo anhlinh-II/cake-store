@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { FaCamera } from "react-icons/fa";
 
 interface DataType {
-     key: string;
+     customerId: string;
      name: string;
      phone: string;
      address: string;
@@ -21,7 +21,7 @@ const UpdateCustomerModal = (props: IProps) => {
      const { show, setShow, data } = props;
 
      const [customerInfo, setCustomerInfo] = useState<DataType>({
-          key: '',
+          customerId: '',
           name: '',
           phone: "",
           email: "",
@@ -35,7 +35,7 @@ const UpdateCustomerModal = (props: IProps) => {
      const [form] = Form.useForm(); // Use Form instance
 
      useEffect(() => {
-          if (data.key) {
+          if (data.customerId) {
                setCustomerInfo(data);
                form.setFieldsValue(data); // Dynamically update form fields
           }
@@ -81,7 +81,7 @@ const UpdateCustomerModal = (props: IProps) => {
                     onCancel={handleCancel}
                     open={show}
                     footer={null}
-                    key={data.key} // Change key to trigger re-render
+                    key={data.customerId} // Change customerId to trigger re-render
                >
                     <Form
                          layout="vertical"
@@ -109,8 +109,8 @@ const UpdateCustomerModal = (props: IProps) => {
                               <p className="text-sm text-gray-500">Customer Avatar</p>
                          </div>
 
-                         <Form.Item label="ID" name="key">
-                              <Input disabled value={data.key} />
+                         <Form.Item label="ID" name="customerId">
+                              <Input disabled value={data.customerId} />
                          </Form.Item>
 
                          <div className="flex gap-2 w-full justify-between">

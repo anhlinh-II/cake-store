@@ -1,7 +1,7 @@
 import { Button, Modal } from "antd";
 
 interface DataType {
-     key: string;
+     customerId: string;
      name: string;
      phone: string;
      address: string;
@@ -33,7 +33,7 @@ const DeleteCustomerModal = (props: IProps) => {
                footer={null} // Custom footer for modal buttons
           >
                <div className="">
-                    <p className="mb-4 text-lg">Are you sure you want to delete customer <strong>{data.key}</strong> with email <strong>{data.email}</strong>?</p>
+                    <p className="mb-4 text-lg">Are you sure you want to delete customer <strong>{data.customerId}</strong> with email <strong>{data.email}</strong>?</p>
 
                     <div className="flex justify-end gap-2">
                          <Button onClick={handleCancel} className="mr-2">
