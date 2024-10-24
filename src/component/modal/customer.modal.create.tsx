@@ -2,14 +2,9 @@ import { Avatar, Button, Form, Input, Modal } from "antd";
 import { UserOutlined } from '@ant-design/icons';
 import { useRef, useState } from "react";
 import { FaCamera } from "react-icons/fa";
-
-interface DataType {
-     key: string;
-     name: string;
-     phone: string;
-     address: string;
-     email: string;
-}
+import { createCustomer } from "../../api";
+import { CreateCustomerRequest } from "../../type";
+import { toast } from "react-toastify";
 
 interface IProps {
      show: boolean;
@@ -19,13 +14,6 @@ interface IProps {
 const CreateCustomerModal = (props: IProps) => {
      const { show, setShow } = props;
 
-     const [customerInfo, setCustomerInfo] = useState<DataType>({
-          key: '',
-          name: '',
-          phone: "",
-          email: "",
-          address: '',
-     });
      const [selectedFile, setSelectedFile] = useState<File | null>(null);
      const [filePreview, setFilePreview] = useState<string | null>(null); // To store file preview URL
 
@@ -37,18 +25,30 @@ const CreateCustomerModal = (props: IProps) => {
           setShow(false);
      };
 
-     const handleSubmit = () => {
-          console.log("Updated Customer Info:", customerInfo);
-          // Handle submission logic (e.g., update customer info in state or API)
-          setShow(false);
-     };
+     const handleSubmit = async () => {
+          try {
+               const customerInfo = form.getFieldsValue(); // Get all form values
+               console.log("Customer Info:", customerInfo);
 
-     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-          const { name, value } = e.target;
-          setCustomerInfo((prevState) => ({
-               ...prevState,
-               [name]: value, // Dynamically update the correct field
-          }));
+               const response = await createCustomer(customerInfo); // Call the API with the customer info
+               console.log("Full API Response:", response); // Log the entire response object
+
+               if (response && response.data) {
+                    console.log("Customer created:", response.data); // Log the data from the response
+               } else {
+                    console.warn("No data returned from API");
+               }
+
+               form.resetFields(); // Reset form fields after successful creation
+               setShow(false);     // Close the modal
+               toast.success(
+                    <span>
+                         Create a new customer with name <strong>{response.result.name}</strong> successfully!
+                    </span>
+               );
+          } catch (error) {
+               console.error("Error creating customer:", error); // Log the error details
+          }
      };
 
      const handleOpenFileBrowser = () => {
@@ -78,7 +78,6 @@ const CreateCustomerModal = (props: IProps) => {
                          layout="vertical"
                          onFinish={handleSubmit}
                          form={form} // Link the form instance
-                         initialValues={customerInfo}
                     >
                          <div className="flex flex-col items-center mb-2 relative">
                               <Avatar
@@ -102,21 +101,21 @@ const CreateCustomerModal = (props: IProps) => {
 
                          <div className="flex gap-2 w-full justify-between">
                               <Form.Item className="w-1/2" label="Name" name="name" rules={[{ required: true }]}>
-                                   <Input onChange={handleOnChange} value={customerInfo.name} />
+                                   <Input />
                               </Form.Item>
 
                               <Form.Item className="w-1/2" label="Phone" name="phone" rules={[{ required: true }]}>
-                                   <Input onChange={handleOnChange} value={customerInfo.phone} />
+                                   <Input />
                               </Form.Item>
                          </div>
 
                          <div className="flex gap-2 w-full justify-between">
                               <Form.Item className="w-1/2" label="Email" name="email" rules={[{ required: true, type: 'email' }]}>
-                                   <Input onChange={handleOnChange} value={customerInfo.email} />
+                                   <Input />
                               </Form.Item>
 
                               <Form.Item className="w-1/2" label="Address" name="address" rules={[{ required: true }]}>
-                                   <Input onChange={handleOnChange} value={customerInfo.address} />
+                                   <Input />
                               </Form.Item>
                          </div>
 
