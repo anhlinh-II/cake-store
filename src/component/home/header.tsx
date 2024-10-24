@@ -10,7 +10,7 @@ const Header = () => {
                                    <Link to="/" className="hover:text-blue-300">Home</Link>
                               </li>
                               <li className='cursor-pointer hover:text-gray-200'>
-                                   <Link to="/admin" className="hover:text-blue-300">Admin</Link>
+                                   <Link to="/admin/customers" className="hover:text-blue-300">Admin</Link>
                               </li>
                          </ul>
                     </nav>

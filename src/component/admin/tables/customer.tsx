@@ -2,6 +2,8 @@ import { Button, Space, Table, TableProps } from "antd";
 import { useState } from "react";
 import UpdateCustomerModal from "../../modal/customer.modal.update";
 import DeleteCustomerModal from "../../modal/customer.modal.delete";
+import { IoMdAdd } from "react-icons/io";
+import CreateCustomerModal from "../../modal/customer.modal.create";
 
 interface DataType {
   key: string;
@@ -46,6 +48,8 @@ const Customers = () => {
       address: '',
     }
   );
+
+  const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
   const columns: TableProps<DataType>['columns'] = [
     {
       title: 'ID',
@@ -95,12 +99,21 @@ const Customers = () => {
   const handleDelete = (customer: DataType) => {
     setShowDeleteModal(true);
     setDeletedCustomer(customer);
+  }
 
+  const handleCreate = () => {
+    setShowCreateModal(true)
   }
 
   return (
     <div className="z-0">
-      <Table dataSource={data} columns={columns} />
+      <div className="flex flex-col gap-4">
+        <div className="p-3 bg-white flex justify-between items-center rounded-md">
+          <span className="font-semibold">Total customers: <span className="text-sky-600">3000</span></span>
+          <Button onClick={() => handleCreate()} variant="solid" color="primary"><span><IoMdAdd /></span>Create Customer</Button>
+        </div>
+        <Table dataSource={data} columns={columns} />
+      </div>
       <UpdateCustomerModal
         show={isModalVisible}
         setShow={setIsModalVisible}
@@ -110,6 +123,10 @@ const Customers = () => {
         show={showDeleteModal}
         setShow={setShowDeleteModal}
         data={deletedCCustomer}
+      />
+      <CreateCustomerModal
+        show={showCreateModal}
+        setShow={setShowCreateModal}
       />
     </div>
   )

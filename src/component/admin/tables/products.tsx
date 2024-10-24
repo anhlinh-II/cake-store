@@ -2,6 +2,8 @@ import { Button, Space, Table, TableProps } from "antd";
 import UpdateProductModal from "../../modal/product.modal.update";
 import { useState } from "react";
 import DeleteProductModal from "../../modal/product.modal.delete";
+import { IoMdAdd } from "react-icons/io";
+import CreateProductModal from "../../modal/product.modal.create";
 
 interface IProduct {
      key: string;
@@ -56,6 +58,8 @@ const Product = () => {
                description: "",
           }
      )
+
+     const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
 
      const columns: TableProps<IProduct>['columns'] = [
           {
@@ -114,9 +118,19 @@ const Product = () => {
           setDeleteProductData(product);
      }
 
+     const handleCreate = () => {
+          setShowCreateModal(true)
+     }
+
      return (
           <div>
-               <Table dataSource={dataSource} columns={columns} />;
+               <div className="flex flex-col gap-4">
+                    <div className="p-3 bg-white rounded-lg flex justify-between items-center">
+                         <span className="font-semibold">Total Products: <span className="text-sky-600">21</span></span>
+                         <Button onClick={() => handleCreate()} variant="solid" color="primary"><span><IoMdAdd /></span>Add Product</Button>
+                    </div>
+                    <Table dataSource={dataSource} columns={columns} />
+               </div>
                <UpdateProductModal
                     setShow={setShowUpdateModal}
                     show={showUpdateModal}
@@ -126,6 +140,10 @@ const Product = () => {
                     show={showDeleteModal}
                     setShow={setShowDeleteModal}
                     data={deleteProductData}
+               />
+               <CreateProductModal
+                    show={showCreateModal}
+                    setShow={setShowCreateModal}
                />
           </div>
      )
