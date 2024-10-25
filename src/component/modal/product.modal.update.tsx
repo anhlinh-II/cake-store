@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { FaCamera } from "react-icons/fa";
 
 interface IProduct {
-     key: string;
+     productId: string;
      name: string;
      price: number;
      stock: number;
@@ -23,7 +23,7 @@ const UpdateProductModal = (props: IProps) => {
 
      const [productInfo, setProductInfo] = useState<IProduct>(
           {
-               key: '',
+               productId: '',
                name: '',
                price: 0,
                stock: 0,
@@ -39,7 +39,7 @@ const UpdateProductModal = (props: IProps) => {
      const [form] = Form.useForm(); // Use Form instance
 
      useEffect(() => {
-          if (data.key) {
+          if (data.productId) {
                setProductInfo(data);
                form.setFieldsValue(data); // Dynamically update form fields
           }
@@ -85,7 +85,7 @@ const UpdateProductModal = (props: IProps) => {
                     onCancel={handleCancel}
                     open={show}
                     footer={null}
-                    key={data.key} // Change key to trigger re-render
+                    key={data.productId} // Change key to trigger re-render
                >
                     <Form
                          layout="vertical"
@@ -114,7 +114,7 @@ const UpdateProductModal = (props: IProps) => {
                          </div>
 
                          <Form.Item label="ID" name="key">
-                              <Input disabled value={data.key} />
+                              <Input disabled value={data.productId} />
                          </Form.Item>
 
                          <div className="flex w-full justify-between gap-2">

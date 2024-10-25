@@ -7,7 +7,6 @@ import {
 } from "react-router-dom";
 import App from './App';
 import Home from './component/home/home';
-import Store from './component/home/store';
 import Admin from './component/admin/admin';
 import Customers from './component/admin/tables/customer';
 import Order from './component/admin/tables/orders';
@@ -28,10 +27,6 @@ const router = createBrowserRouter([
       {
         path: "/products",
         element: <Product />
-      },
-      {
-        path: "/stores",
-        element: <Store />
       },
       {
         path: "/admin",
@@ -56,10 +51,6 @@ const router = createBrowserRouter([
           {
             path: "/admin/reviews",
             element: <Review />
-          },
-          {
-            path: "/admin/stores",
-            element: <Store />
           },
           {
             path: "/admin/suppliers",

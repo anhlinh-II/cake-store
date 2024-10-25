@@ -2,6 +2,8 @@ import { Avatar, Button, Form, Input, Modal } from "antd";
 import { UserOutlined } from '@ant-design/icons';
 import { useEffect, useRef, useState } from "react";
 import { FaCamera } from "react-icons/fa";
+import { updateCustomer } from "../../api";
+import { toast } from "react-toastify";
 
 interface DataType {
      customerId: string;
@@ -14,11 +16,13 @@ interface DataType {
 interface IProps {
      show: boolean;
      setShow: React.Dispatch<React.SetStateAction<boolean>>;
+     isUpdate: boolean;
+     setIsUpdate: React.Dispatch<React.SetStateAction<boolean>>;
      data: DataType;
 }
 
 const UpdateCustomerModal = (props: IProps) => {
-     const { show, setShow, data } = props;
+     const { show, setShow, data, setIsUpdate, isUpdate } = props;
 
      const [customerInfo, setCustomerInfo] = useState<DataType>({
           customerId: '',
@@ -45,10 +49,17 @@ const UpdateCustomerModal = (props: IProps) => {
           setShow(false);
      };
 
-     const handleSubmit = () => {
-          console.log("Updated Customer Info:", customerInfo);
-          // Handle submission logic (e.g., update customer info in state or API)
-          setShow(false);
+     const handleSubmit = async () => {
+          
+          const response = await updateCustomer(Number(customerInfo.customerId), customerInfo);
+
+          if(response && response.result) {
+               setShow(false);
+               setIsUpdate(!isUpdate);
+               toast.success(
+                    <span>Update customer with id <strong className="text-sky-600">{customerInfo.customerId}</strong> succesfully!</span>
+               )
+          }
      };
 
      const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -115,21 +126,21 @@ const UpdateCustomerModal = (props: IProps) => {
 
                          <div className="flex gap-2 w-full justify-between">
                               <Form.Item className="w-1/2" label="Name" name="name" rules={[{ required: true }]}>
-                                   <Input onChange={handleOnChange} value={data.name} />
+                                   <Input name="name" onChange={handleOnChange} value={data.name} />
                               </Form.Item>
 
                               <Form.Item className="w-1/2" label="Phone" name="phone" rules={[{ required: true }]}>
-                                   <Input onChange={handleOnChange} value={data.phone} />
+                                   <Input name="phone" onChange={handleOnChange} value={data.phone} />
                               </Form.Item>
                          </div>
 
                          <div className="flex gap-2 w-full justify-between">
                               <Form.Item className="w-1/2" label="Email" name="email" rules={[{ required: true, type: 'email' }]}>
-                                   <Input onChange={handleOnChange} value={data.email} />
+                                   <Input name="email" onChange={handleOnChange} value={data.email} />
                               </Form.Item>
 
                               <Form.Item className="w-1/2" label="Address" name="address" rules={[{ required: true }]}>
-                                   <Input onChange={handleOnChange} value={data.address} />
+                                   <Input name="address" onChange={handleOnChange} value={data.address} />
                               </Form.Item>
                          </div>
 

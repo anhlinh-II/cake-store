@@ -1,5 +1,5 @@
 import axios from "axios"
-import { CreateCustomerRequest } from "./type"
+import { CreateCustomerRequest, UpdateCustomerRequest } from "./type"
 
 const BASE_URL = `http://localhost:8080`;
 
@@ -17,6 +17,12 @@ export const getAllCustomers = async () => {
 
 export const deleteCustomer = async (id: number) => {
      const response = await axios.delete(`${BASE_URL}/api/customers/${id}`);
+
+     return response.data;
+}
+
+export const updateCustomer = async (id: number, request: UpdateCustomerRequest) => {
+     const response = await axios.put(`${BASE_URL}/api/customers/${id}`, request)
 
      return response.data;
 }

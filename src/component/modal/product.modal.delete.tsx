@@ -1,7 +1,7 @@
 import { Button, Modal } from "antd";
 
 interface IProduct {
-     key: string;
+     productId: string;
      name: string;
      price: number;
      stock: number;
@@ -34,7 +34,7 @@ const DeleteProductModal = (props: IProps) => {
                footer={null} // Custom footer for modal buttons
           >
                <div className="">
-                    <p className="mb-4 text-lg">Are you sure you want to delete product <strong>{data.key}</strong> which has name <strong>{data.name}</strong>?</p>
+                    <p className="mb-4 text-lg">Are you sure you want to delete product <strong>{data.productId}</strong> which has name <strong>{data.name}</strong>?</p>
 
                     <div className="flex justify-end gap-2">
                          <Button onClick={handleCancel} className="mr-2">

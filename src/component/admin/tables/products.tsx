@@ -6,7 +6,7 @@ import { IoMdAdd } from "react-icons/io";
 import CreateProductModal from "../../modal/product.modal.create";
 
 interface IProduct {
-     key: string;
+     productId: string;
      name: string;
      price: number;
      stock: number;
@@ -16,7 +16,7 @@ interface IProduct {
 
 const dataSource: IProduct[] = [
      {
-          key: '1',
+          productId: '1',
           name: 'Bánh nướng',
           price: 30000,
           stock: 100,
@@ -24,7 +24,7 @@ const dataSource: IProduct[] = [
           description: "This is banh nuong for rich people",
      },
      {
-          key: '2',
+          productId: '2',
           name: 'Bánh dẻo',
           price: 20000,
           stock: 50,
@@ -38,7 +38,7 @@ const Product = () => {
      const [showUpdateModal, setShowUpdateModal] = useState<boolean>(false);
      const [updateProductData, setUpdateProductData] = useState<IProduct>(
           {
-               key: '',
+               productId: '',
                name: '',
                price: 0,
                stock: 0,
@@ -50,7 +50,7 @@ const Product = () => {
      const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
      const [deleteProductData, setDeleteProductData] = useState<IProduct>(
           {
-               key: '',
+               productId: '',
                name: '',
                price: 0,
                stock: 0,
@@ -64,8 +64,8 @@ const Product = () => {
      const columns: TableProps<IProduct>['columns'] = [
           {
                title: 'ID',
-               dataIndex: 'key',
-               key: 'key',
+               dataIndex: 'productId',
+               key: 'productId',
           },
           {
                title: 'Product',

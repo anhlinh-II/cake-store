@@ -83,12 +83,15 @@ const Customers = () => {
 
   const [isDelete, setIsDelete] = useState<boolean>(false);
   const [isCreate, setIsCreate] = useState<boolean>(false);
+  const [isUpdate, setIsUpdate] = useState<boolean>(false);
+
+  const [totalCustomer, setTotalCustomer] = useState<number>(0);
 
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
         const response = await getAllCustomers();
-        console.log(response)
+        setTotalCustomer(response.result.totalElements)
         setCustomers(response.result.content); // Assuming response.data contains the customer array
         console.log("customers >> ", customers);
       } catch (error) {
@@ -96,7 +99,7 @@ const Customers = () => {
       }
     };
     fetchCustomers();
-  }, [isDelete, isCreate])
+  }, [isDelete, isCreate, isUpdate])
 
   const handleUpdate = (customer: DataType) => {
     setIsModalVisible(true);
@@ -116,12 +119,14 @@ const Customers = () => {
     <div className="z-0">
       <div className="flex flex-col gap-4">
         <div className="p-3 bg-white flex justify-between items-center rounded-md">
-          <span className="font-semibold">Total customers: <span className="text-sky-600">3000</span></span>
+          <span className="font-semibold">Total customers: <span className="text-sky-600">{totalCustomer}</span></span>
           <Button onClick={() => handleCreate()} variant="solid" color="primary"><span><IoMdAdd /></span>Create Customer</Button>
         </div>
         <Table dataSource={customers} columns={columns} />
       </div>
       <UpdateCustomerModal
+        isUpdate={isUpdate}
+        setIsUpdate={setIsUpdate}
         show={isModalVisible}
         setShow={setIsModalVisible}
         data={selectedCustomer}
