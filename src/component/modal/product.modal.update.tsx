@@ -7,8 +7,8 @@ interface IProduct {
      productId: string;
      name: string;
      price: number;
-     stock: number;
-     sold: number;
+     stockQuantity: number;
+     soldQuantity: number;
      description: string;
 }
 
@@ -26,8 +26,8 @@ const UpdateProductModal = (props: IProps) => {
                productId: '',
                name: '',
                price: 0,
-               stock: 0,
-               sold: 0,
+               stockQuantity: 0,
+               soldQuantity: 0,
                description: "",
           }
      );
@@ -131,11 +131,11 @@ const UpdateProductModal = (props: IProps) => {
 
                          <div className="flex justify-between gap-2 w-full">
                               <Form.Item className="w-1/2" label="Stock" name="stock" rules={[{ required: true }]}>
-                                   <Input onChange={handleOnChange} value={data.stock} />
+                                   <Input onChange={handleOnChange} value={data.stockQuantity} />
                               </Form.Item>
 
                               <Form.Item className="w-1/2" label="Sold" name="sold" rules={[{ required: true }]}>
-                                   <Input onChange={handleOnChange} value={data.sold} />
+                                   <Input onChange={handleOnChange} value={data.soldQuantity} />
                               </Form.Item>
                          </div>
 

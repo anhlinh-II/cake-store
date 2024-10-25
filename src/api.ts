@@ -3,6 +3,7 @@ import { CreateCustomerRequest, UpdateCustomerRequest } from "./type"
 
 const BASE_URL = `http://localhost:8080`;
 
+// customer service
 export const createCustomer = async (request: CreateCustomerRequest) => {
      const response = await axios.post(`${BASE_URL}/api/customers`, request)
 
@@ -23,6 +24,14 @@ export const deleteCustomer = async (id: number) => {
 
 export const updateCustomer = async (id: number, request: UpdateCustomerRequest) => {
      const response = await axios.put(`${BASE_URL}/api/customers/${id}`, request)
+
+     return response.data;
+}
+
+
+// product service
+export const getAllProducts = async () => {
+     const response = await axios.get(`${BASE_URL}/api/products`)
 
      return response.data;
 }

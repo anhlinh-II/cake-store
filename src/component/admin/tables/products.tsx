@@ -1,37 +1,19 @@
 import { Button, Space, Table, TableProps } from "antd";
 import UpdateProductModal from "../../modal/product.modal.update";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DeleteProductModal from "../../modal/product.modal.delete";
 import { IoMdAdd } from "react-icons/io";
 import CreateProductModal from "../../modal/product.modal.create";
+import { getAllProducts } from "../../../api";
 
 interface IProduct {
      productId: string;
      name: string;
      price: number;
-     stock: number;
-     sold: number;
+     stockQuantity: number;
+     soldQuantity: number;
      description: string;
 }
-
-const dataSource: IProduct[] = [
-     {
-          productId: '1',
-          name: 'Bánh nướng',
-          price: 30000,
-          stock: 100,
-          sold: 20,
-          description: "This is banh nuong for rich people",
-     },
-     {
-          productId: '2',
-          name: 'Bánh dẻo',
-          price: 20000,
-          stock: 50,
-          sold: 3,
-          description: "This is banh deo for poor people",
-     },
-];
 
 const Product = () => {
 
@@ -41,8 +23,8 @@ const Product = () => {
                productId: '',
                name: '',
                price: 0,
-               stock: 0,
-               sold: 0,
+               stockQuantity: 0,
+               soldQuantity: 0,
                description: "",
           }
      )
@@ -53,13 +35,30 @@ const Product = () => {
                productId: '',
                name: '',
                price: 0,
-               stock: 0,
-               sold: 0,
+               stockQuantity: 0,
+               soldQuantity: 0,
                description: "",
           }
      )
 
+     const [totalProducts, setTotalProducts] = useState<number>(0);
+     const [products, setProducts] = useState<IProduct[]>([]);
+
      const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
+
+     useEffect(() => {
+          const fetchProducts = async () => {
+               try {
+                 const response = await getAllProducts();
+                 setTotalProducts(response.result.totalElements)
+                 setProducts(response.result.content); // Assuming response.data contains the customer array
+                 console.log("products >> ", products);
+               } catch (error) {
+                 console.error("Failed to fetch customers:", error);
+               }
+             };
+             fetchProducts();
+     }, [])
 
      const columns: TableProps<IProduct>['columns'] = [
           {
@@ -79,13 +78,13 @@ const Product = () => {
           },
           {
                title: 'Stock',
-               dataIndex: 'stock',
-               key: 'stock',
+               dataIndex: 'stockQuantity',
+               key: 'stockQuantity',
           },
           {
                title: 'Sold',
-               dataIndex: 'sold',
-               key: 'sold',
+               dataIndex: 'soldQuantity',
+               key: 'soldQuantity',
           },
           {
                title: 'Description',
@@ -126,10 +125,10 @@ const Product = () => {
           <div>
                <div className="flex flex-col gap-4">
                     <div className="p-3 bg-white rounded-lg flex justify-between items-center">
-                         <span className="font-semibold">Total Products: <span className="text-sky-600">21</span></span>
+                         <span className="font-semibold">Total Products: <span className="text-sky-600">{totalProducts}</span></span>
                          <Button onClick={() => handleCreate()} variant="solid" color="primary"><span><IoMdAdd /></span>Add Product</Button>
                     </div>
-                    <Table dataSource={dataSource} columns={columns} />
+                    <Table dataSource={products} columns={columns} />
                </div>
                <UpdateProductModal
                     setShow={setShowUpdateModal}

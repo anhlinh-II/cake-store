@@ -4,8 +4,8 @@ interface IProduct {
      productId: string;
      name: string;
      price: number;
-     stock: number;
-     sold: number;
+     stockQuantity: number;
+     soldQuantity: number;
      description: string;
 }
 

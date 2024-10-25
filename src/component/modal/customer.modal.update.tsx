@@ -45,10 +45,6 @@ const UpdateCustomerModal = (props: IProps) => {
           }
      }, [data, form]);
 
-     const handleCancel = () => {
-          setShow(false);
-     };
-
      const handleSubmit = async () => {
           
           const response = await updateCustomer(Number(customerInfo.customerId), customerInfo);
@@ -89,7 +85,7 @@ const UpdateCustomerModal = (props: IProps) => {
           <div>
                <Modal
                     title="Update Customer"
-                    onCancel={handleCancel}
+                    onCancel={() => setShow(false)}
                     open={show}
                     footer={null}
                     key={data.customerId} // Change customerId to trigger re-render
