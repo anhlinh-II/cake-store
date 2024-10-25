@@ -14,3 +14,9 @@ export const getAllCustomers = async () => {
 
      return response.data;
 }
+
+export const deleteCustomer = async (id: number) => {
+     const response = await axios.delete(`${BASE_URL}/api/customers/${id}`);
+
+     return response.data;
+}

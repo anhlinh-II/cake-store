@@ -9,10 +9,12 @@ import { toast } from "react-toastify";
 interface IProps {
      show: boolean;
      setShow: React.Dispatch<React.SetStateAction<boolean>>;
+     isCreate: boolean;
+     setIsCreate: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CreateCustomerModal = (props: IProps) => {
-     const { show, setShow } = props;
+     const { show, setShow, isCreate, setIsCreate} = props;
 
      const [selectedFile, setSelectedFile] = useState<File | null>(null);
      const [filePreview, setFilePreview] = useState<string | null>(null); // To store file preview URL
@@ -46,6 +48,7 @@ const CreateCustomerModal = (props: IProps) => {
                          Create a new customer with name <strong>{response.result.name}</strong> successfully!
                     </span>
                );
+               setIsCreate(!isCreate);
           } catch (error) {
                console.error("Error creating customer:", error); // Log the error details
           }

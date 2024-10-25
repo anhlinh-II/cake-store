@@ -16,24 +16,7 @@ interface DataType {
 
 const Customers = () => {
 
-  const [customers, setCustomers] = useState<DataType[]>(
-    [
-      // {
-      //   customerId: '1',
-      //   name: 'Mike',
-      //   phone: "0837421572",
-      //   email: "mike@gmail.com",
-      //   address: '10 Downing Street',
-      // },
-      // {
-      //   customerId: '2',
-      //   name: 'Johnson',
-      //   phone: "0944580681",
-      //   email: "john@gmail.com",
-      //   address: '10 Downing Street',
-      // },
-    ]
-  )
+  const [customers, setCustomers] = useState<DataType[]>([])
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState<DataType>({
@@ -98,6 +81,9 @@ const Customers = () => {
     },
   ];
 
+  const [isDelete, setIsDelete] = useState<boolean>(false);
+  const [isCreate, setIsCreate] = useState<boolean>(false);
+
   useEffect(() => {
     const fetchCustomers = async () => {
       try {
@@ -110,7 +96,7 @@ const Customers = () => {
       }
     };
     fetchCustomers();
-  }, [])
+  }, [isDelete, isCreate])
 
   const handleUpdate = (customer: DataType) => {
     setIsModalVisible(true);
@@ -141,11 +127,15 @@ const Customers = () => {
         data={selectedCustomer}
       />
       <DeleteCustomerModal
+        isDelete={isDelete}
+        setIsDelete={setIsDelete}
         show={showDeleteModal}
         setShow={setShowDeleteModal}
         data={deletedCCustomer}
       />
       <CreateCustomerModal
+        isCreate={isCreate}
+        setIsCreate={setIsCreate}
         show={showCreateModal}
         setShow={setShowCreateModal}
       />

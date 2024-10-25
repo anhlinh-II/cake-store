@@ -1,4 +1,6 @@
 import { Button, Modal } from "antd";
+import { deleteCustomer, getAllCustomers } from "../../api";
+import { toast } from "react-toastify";
 
 interface DataType {
      customerId: string;
@@ -9,27 +11,34 @@ interface DataType {
 }
 
 interface IProps {
+     isDelete: boolean;
+     setIsDelete: React.Dispatch<React.SetStateAction<boolean>>;
      show: boolean;
      setShow: React.Dispatch<React.SetStateAction<boolean>>;
      data: DataType;
 }
 
 const DeleteCustomerModal = (props: IProps) => {
-     const { show, setShow, data } = props;
+     const { show, setShow, data, isDelete, setIsDelete } = props;
 
      const handleCancel = () => {
           setShow(false);
      }
 
-     const handleSubmit = () => {
-          setShow(false);
+     const handleSubmit = async (id: number) => {
+          const res = await deleteCustomer(id);
+          if (res) {
+               toast.success(res.message);
+               setShow(false);
+               setIsDelete(!isDelete)
+          }
      }
      return (
           <Modal
                title="Confirm Deletion"
                open={show}
                onCancel={handleCancel}
-               onOk={handleSubmit}
+               onOk={() => handleSubmit(Number(data.customerId))}
                footer={null} // Custom footer for modal buttons
           >
                <div className="">
@@ -39,7 +48,7 @@ const DeleteCustomerModal = (props: IProps) => {
                          <Button onClick={handleCancel} className="mr-2">
                               Cancel
                          </Button>
-                         <Button type="primary" danger onClick={handleSubmit}>
+                         <Button type="primary" danger onClick={() => handleSubmit(Number(data.customerId))}>
                               Delete
                          </Button>
                     </div>
