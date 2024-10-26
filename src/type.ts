@@ -11,3 +11,12 @@ export interface UpdateCustomerRequest {
      phone: string;
      address: string;
 }
+
+export interface CreateProductRequest {
+     name: string;
+     price: number;
+     stockQuantity: number;
+     soldQuantity: number;
+     description: string;
+     supplierId: number;
+}

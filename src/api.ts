@@ -1,5 +1,5 @@
 import axios from "axios"
-import { CreateCustomerRequest, UpdateCustomerRequest } from "./type"
+import { CreateCustomerRequest, CreateProductRequest, UpdateCustomerRequest } from "./type"
 
 const BASE_URL = `http://localhost:8080`;
 
@@ -32,6 +32,12 @@ export const updateCustomer = async (id: number, request: UpdateCustomerRequest)
 // product service
 export const getAllProducts = async () => {
      const response = await axios.get(`${BASE_URL}/api/products`)
+
+     return response.data;
+}
+
+export const createProduct = async (request: CreateProductRequest) => {
+     const response = await axios.post(`${BASE_URL}/api/products`, request)
 
      return response.data;
 }

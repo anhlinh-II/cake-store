@@ -46,6 +46,8 @@ const Product = () => {
 
      const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
 
+     const [isCreate, setIsCreate] = useState<boolean>(false);
+
      useEffect(() => {
           const fetchProducts = async () => {
                try {
@@ -58,7 +60,7 @@ const Product = () => {
                }
              };
              fetchProducts();
-     }, [])
+     }, [isCreate])
 
      const columns: TableProps<IProduct>['columns'] = [
           {
@@ -141,6 +143,8 @@ const Product = () => {
                     data={deleteProductData}
                />
                <CreateProductModal
+               isCreate={isCreate}
+               setIsCreate={setIsCreate}
                     show={showCreateModal}
                     setShow={setShowCreateModal}
                />
