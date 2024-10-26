@@ -47,20 +47,21 @@ const Product = () => {
      const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
 
      const [isCreate, setIsCreate] = useState<boolean>(false);
+     const [isDelete, setIsDelete] = useState<boolean>(false);
 
      useEffect(() => {
           const fetchProducts = async () => {
                try {
-                 const response = await getAllProducts();
-                 setTotalProducts(response.result.totalElements)
-                 setProducts(response.result.content); // Assuming response.data contains the customer array
-                 console.log("products >> ", products);
+                    const response = await getAllProducts();
+                    setTotalProducts(response.result.totalElements)
+                    setProducts(response.result.content); // Assuming response.data contains the customer array
+                    console.log("products >> ", products);
                } catch (error) {
-                 console.error("Failed to fetch customers:", error);
+                    console.error("Failed to fetch customers:", error);
                }
-             };
-             fetchProducts();
-     }, [isCreate])
+          };
+          fetchProducts();
+     }, [isCreate, isDelete])
 
      const columns: TableProps<IProduct>['columns'] = [
           {
@@ -138,13 +139,15 @@ const Product = () => {
                     data={updateProductData}
                />
                <DeleteProductModal
+                    isDelete={isDelete}
+                    setIsDelete={setIsDelete}
                     show={showDeleteModal}
                     setShow={setShowDeleteModal}
                     data={deleteProductData}
                />
                <CreateProductModal
-               isCreate={isCreate}
-               setIsCreate={setIsCreate}
+                    isCreate={isCreate}
+                    setIsCreate={setIsCreate}
                     show={showCreateModal}
                     setShow={setShowCreateModal}
                />

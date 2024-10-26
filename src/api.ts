@@ -41,3 +41,9 @@ export const createProduct = async (request: CreateProductRequest) => {
 
      return response.data;
 }
+
+export const deleteProduct = async (id: number) => {
+     const response = await axios.delete(`${BASE_URL}/api/products/${id}`);
+
+     return response.data;
+}
