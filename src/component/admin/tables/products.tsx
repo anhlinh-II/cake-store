@@ -13,6 +13,7 @@ interface IProduct {
      stockQuantity: number;
      soldQuantity: number;
      description: string;
+     supplierId: number;
 }
 
 const Product = () => {
@@ -26,6 +27,7 @@ const Product = () => {
                stockQuantity: 0,
                soldQuantity: 0,
                description: "",
+               supplierId: 4
           }
      )
 
@@ -38,6 +40,7 @@ const Product = () => {
                stockQuantity: 0,
                soldQuantity: 0,
                description: "",
+               supplierId: 4
           }
      )
 
@@ -48,6 +51,7 @@ const Product = () => {
 
      const [isCreate, setIsCreate] = useState<boolean>(false);
      const [isDelete, setIsDelete] = useState<boolean>(false);
+     const [isUpdate, setIsUpdate] = useState<boolean>(false);
 
      useEffect(() => {
           const fetchProducts = async () => {
@@ -61,7 +65,7 @@ const Product = () => {
                }
           };
           fetchProducts();
-     }, [isCreate, isDelete])
+     }, [isCreate, isDelete, isUpdate])
 
      const columns: TableProps<IProduct>['columns'] = [
           {
@@ -134,6 +138,8 @@ const Product = () => {
                     <Table dataSource={products} columns={columns} />
                </div>
                <UpdateProductModal
+                    isUpdate={isUpdate}
+                    setIsUpdate={setIsUpdate}
                     setShow={setShowUpdateModal}
                     show={showUpdateModal}
                     data={updateProductData}

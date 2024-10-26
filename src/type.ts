@@ -20,3 +20,13 @@ export interface CreateProductRequest {
      description: string;
      supplierId: number;
 }
+
+export interface UpdateProductRequest {
+     productId: number;
+     name: string;
+     price: number;
+     stockQuantity: number;
+     soldQuantity: number;
+     description: string;
+     supplierId: number;
+}
