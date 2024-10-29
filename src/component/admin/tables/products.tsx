@@ -51,7 +51,7 @@ const Product = () => {
 
      const [isCreate, setIsCreate] = useState<boolean>(false);
      const [isDelete, setIsDelete] = useState<boolean>(false);
-     const [isUpdate, setIsUpdate] = useState<boolean>(false);
+     const [isUpdate, setIsUpdate  ] = useState<boolean>(false);
 
      useEffect(() => {
           const fetchProducts = async () => {

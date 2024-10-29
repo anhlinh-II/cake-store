@@ -30,3 +30,10 @@ export interface UpdateProductRequest {
      description: string;
      supplierId: number;
 }
+
+export interface CreateReviewRequest {
+     customerId: number;
+     productId: number;
+     comment: string;
+     rating: string;
+}

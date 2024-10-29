@@ -1,5 +1,5 @@
 import axios from "axios"
-import { CreateCustomerRequest, CreateProductRequest, UpdateCustomerRequest, UpdateProductRequest } from "./type"
+import { CreateCustomerRequest, CreateProductRequest, CreateReviewRequest, UpdateCustomerRequest, UpdateProductRequest } from "./type"
 
 const BASE_URL = `http://localhost:8080`;
 
@@ -28,6 +28,12 @@ export const updateCustomer = async (id: number, request: UpdateCustomerRequest)
      return response.data;
 }
 
+export const getProductById = async (id: number) => {
+     const response = await axios.get(`${BASE_URL}/api/products/${id}`)
+
+     return response.data;
+}
+
 
 // product service
 export const getAllProducts = async () => {
@@ -50,6 +56,26 @@ export const deleteProduct = async (id: number) => {
 
 export const updateProduct = async (request: UpdateProductRequest) => {
      const response = await axios.put(`${BASE_URL}/api/products`, request)
+
+     return response.data;
+}
+
+export const getCustomerById = async (id: number) => {
+     const response = await axios.get(`${BASE_URL}/api/customers/${id}`)
+
+     return response.data;
+}
+
+
+// reviews service
+export const getAllReviews = async () => {
+     const response = await axios.get(`${BASE_URL}/api/reviews`)
+
+     return response.data;
+}
+
+export const createReview = async (request: CreateReviewRequest) => {
+     const response = await axios.post(`${BASE_URL}/api/reviews`, request);
 
      return response.data;
 }
