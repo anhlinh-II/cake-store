@@ -4,6 +4,7 @@ import { IoMdAdd } from "react-icons/io";
 import { getAllReviews, getCustomerById, getProductById } from "../../../api";
 import CreateReviewModal from "../../modal/review.modal.create";
 import { StarFilled } from "@ant-design/icons";
+import DeleteReviewModal from "../../modal/review.modal.delete";
 
 interface IReview {
      reviewId: string;
@@ -164,6 +165,7 @@ const Review = () => {
                     <Table dataSource={reviews} columns={columns} />
                </div>
                <CreateReviewModal show={showCreateModal} setShow={setShowCreateModal} isCreate={isCreate} setIsCreate={setIsCreate} />
+               <DeleteReviewModal show={showDeleteModal} setShow={setShowDeleteModal} data={deleteReviewData} isDelete={isDelete} setIsDelete={setIsDelete} />
           </div>
      )
 };

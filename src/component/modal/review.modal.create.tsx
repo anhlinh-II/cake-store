@@ -2,6 +2,7 @@ import { Button, Form, Input, Modal, Select } from "antd";
 import { createCustomer, createReview, getAllProducts, getCustomerById } from "../../api";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { StarFilled } from "@ant-design/icons";
 
 interface IProps {
      show: boolean;
@@ -107,7 +108,23 @@ const CreateReviewModal = (props: IProps) => {
                          </Form.Item>
 
                          <Form.Item className="w-1/2" label="Rating" name="rating" rules={[{ required: true }]}>
-                              <Input />
+                              <Select placeholder="choose rating">
+                                   <Select.Option value="FIVE_STAR">
+                                        5 <span className="text-yellow-300"><StarFilled /></span>
+                                   </Select.Option>
+                                   <Select.Option value="FOUR_STAR">
+                                        4 <span className="text-yellow-300"><StarFilled /></span>
+                                   </Select.Option>
+                                   <Select.Option value="THREE_STAR">
+                                        3 <span className="text-yellow-300"><StarFilled /></span>
+                                   </Select.Option>
+                                   <Select.Option value="TWO_STAR">
+                                        2 <span className="text-yellow-300"><StarFilled /></span>
+                                   </Select.Option>
+                                   <Select.Option value="ONE_STAR">
+                                        1 <span className="text-yellow-300"><StarFilled /></span>
+                                   </Select.Option>
+                              </Select>
                          </Form.Item>
                     </div>
 

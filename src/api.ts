@@ -79,3 +79,9 @@ export const createReview = async (request: CreateReviewRequest) => {
 
      return response.data;
 }
+
+export const deleteReview = async (id: number) => {
+     const response = await axios.delete(`${BASE_URL}/api/reviews/${id}`);
+
+     return response.data;
+}
