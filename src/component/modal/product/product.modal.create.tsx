@@ -2,7 +2,7 @@ import { Avatar, Button, Form, Input, Modal } from "antd";
 import { UserOutlined } from '@ant-design/icons';
 import { useEffect, useRef, useState } from "react";
 import { FaCamera } from "react-icons/fa";
-import { createProduct } from "../../api";
+import { createProduct } from "../../../api";
 import { toast } from "react-toastify";
 
 interface IProduct {

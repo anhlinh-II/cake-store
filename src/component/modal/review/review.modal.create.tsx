@@ -1,5 +1,5 @@
 import { Button, Form, Input, Modal, Select } from "antd";
-import { createCustomer, createReview, getAllProducts, getCustomerById } from "../../api";
+import { createCustomer, createReview, getAllProducts, getCustomerById } from "../../../api";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { StarFilled } from "@ant-design/icons";
@@ -42,6 +42,7 @@ const CreateReviewModal = (props: IProps) => {
 
      const handleCustomerIdChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
           const customerId = e.target.value;
+          form.setFieldsValue({ customerId });
           console.log(customerId)
           if (customerId) {
                try {
@@ -63,7 +64,7 @@ const CreateReviewModal = (props: IProps) => {
                const response = await createReview(reviewInfo);
                toast.success(
                     <span>
-                         Created a new review for product with name <strong>{response.result?.productName}</strong> successfully!
+                         Created a new review for product with name <strong>{response.result?.productName}</strong>
                     </span>
                );
                setIsCreate(!isCreate);

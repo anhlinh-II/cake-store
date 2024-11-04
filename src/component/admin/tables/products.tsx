@@ -1,9 +1,9 @@
 import { Button, Space, Table, TableProps } from "antd";
-import UpdateProductModal from "../../modal/product.modal.update";
+import UpdateProductModal from "../../modal/product/product.modal.update";
 import { useEffect, useState } from "react";
-import DeleteProductModal from "../../modal/product.modal.delete";
+import DeleteProductModal from "../../modal/product/product.modal.delete";
 import { IoMdAdd } from "react-icons/io";
-import CreateProductModal from "../../modal/product.modal.create";
+import CreateProductModal from "../../modal/product/product.modal.create";
 import { getAllProducts } from "../../../api";
 
 interface IProduct {

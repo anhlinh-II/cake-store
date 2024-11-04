@@ -37,3 +37,9 @@ export interface CreateReviewRequest {
      comment: string;
      rating: string;
 }
+
+export interface UpdateReviewRequest {
+     reviewId: string;
+     rating: string;
+     comment: string;
+}

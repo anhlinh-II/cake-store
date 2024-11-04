@@ -2,9 +2,10 @@ import { Button, Space, Table, TableProps } from "antd";
 import { useEffect, useState } from "react";
 import { IoMdAdd } from "react-icons/io";
 import { getAllReviews, getCustomerById, getProductById } from "../../../api";
-import CreateReviewModal from "../../modal/review.modal.create";
+import CreateReviewModal from "../../modal/review/review.modal.create";
 import { StarFilled } from "@ant-design/icons";
-import DeleteReviewModal from "../../modal/review.modal.delete";
+import DeleteReviewModal from "../../modal/review/review.modal.delete";
+import UpdateReviewModal from "../../modal/review/review.modal.update";
 
 interface IReview {
      reviewId: string;
@@ -141,14 +142,14 @@ const Review = () => {
           }
      };
 
-     const handleUpdate = (product: IReview) => {
+     const handleUpdate = (review: IReview) => {
           setShowUpdateModal(true)
-          setUpdateReviewData(product)
+          setUpdateReviewData(review)
      }
 
-     const handleDelete = (product: IReview) => {
+     const handleDelete = (review: IReview) => {
           setShowDeleteModal(true);
-          setDeleteReviewData(product);
+          setDeleteReviewData(review);
      }
 
      const handleCreate = () => {
@@ -166,6 +167,7 @@ const Review = () => {
                </div>
                <CreateReviewModal show={showCreateModal} setShow={setShowCreateModal} isCreate={isCreate} setIsCreate={setIsCreate} />
                <DeleteReviewModal show={showDeleteModal} setShow={setShowDeleteModal} data={deleteReviewData} isDelete={isDelete} setIsDelete={setIsDelete} />
+               <UpdateReviewModal show={showUpdateModal} setShow={setShowUpdateModal} data={updateReviewData} isUpdate={isUpdate} setIsUpdate={setIsUpdate} />
           </div>
      )
 };

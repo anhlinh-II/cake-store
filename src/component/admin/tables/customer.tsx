@@ -1,9 +1,9 @@
 import { Button, Space, Table, TableProps } from "antd";
 import { useEffect, useState } from "react";
-import UpdateCustomerModal from "../../modal/customer.modal.update";
-import DeleteCustomerModal from "../../modal/customer.modal.delete";
+import UpdateCustomerModal from "../../modal/customer/customer.modal.update";
+import DeleteCustomerModal from "../../modal/customer/customer.modal.delete";
 import { IoMdAdd } from "react-icons/io";
-import CreateCustomerModal from "../../modal/customer.modal.create";
+import CreateCustomerModal from "../../modal/customer/customer.modal.create";
 import { getAllCustomers } from "../../../api";
 
 interface DataType {

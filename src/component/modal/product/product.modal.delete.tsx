@@ -1,5 +1,5 @@
 import { Button, Modal } from "antd";
-import { deleteProduct } from "../../api";
+import { deleteProduct } from "../../../api";
 import { toast } from "react-toastify";
 
 interface IProduct {

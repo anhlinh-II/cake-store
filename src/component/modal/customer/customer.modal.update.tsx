@@ -1,21 +1,36 @@
 import { Avatar, Button, Form, Input, Modal } from "antd";
 import { UserOutlined } from '@ant-design/icons';
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FaCamera } from "react-icons/fa";
-import { createCustomer } from "../../api";
-import { CreateCustomerRequest } from "../../type";
+import { updateCustomer } from "../../../api";
 import { toast } from "react-toastify";
+
+interface DataType {
+     customerId: string;
+     name: string;
+     phone: string;
+     address: string;
+     email: string;
+}
 
 interface IProps {
      show: boolean;
      setShow: React.Dispatch<React.SetStateAction<boolean>>;
-     isCreate: boolean;
-     setIsCreate: React.Dispatch<React.SetStateAction<boolean>>;
+     isUpdate: boolean;
+     setIsUpdate: React.Dispatch<React.SetStateAction<boolean>>;
+     data: DataType;
 }
 
-const CreateCustomerModal = (props: IProps) => {
-     const { show, setShow, isCreate, setIsCreate} = props;
+const UpdateCustomerModal = (props: IProps) => {
+     const { show, setShow, data, setIsUpdate, isUpdate } = props;
 
+     const [customerInfo, setCustomerInfo] = useState<DataType>({
+          customerId: '',
+          name: '',
+          phone: "",
+          email: "",
+          address: '',
+     });
      const [selectedFile, setSelectedFile] = useState<File | null>(null);
      const [filePreview, setFilePreview] = useState<string | null>(null); // To store file preview URL
 
@@ -23,35 +38,32 @@ const CreateCustomerModal = (props: IProps) => {
 
      const [form] = Form.useForm(); // Use Form instance
 
-     const handleCancel = () => {
-          setShow(false);
-     };
+     useEffect(() => {
+          if (data.customerId) {
+               setCustomerInfo(data);
+               form.setFieldsValue(data); // Dynamically update form fields
+          }
+     }, [data, form]);
 
      const handleSubmit = async () => {
-          try {
-               const customerInfo = form.getFieldsValue(); // Get all form values
-               console.log("Customer Info:", customerInfo);
+          
+          const response = await updateCustomer(Number(customerInfo.customerId), customerInfo);
 
-               const response = await createCustomer(customerInfo); // Call the API with the customer info
-               console.log("Full API Response:", response); // Log the entire response object
-
-               if (response && response.data) {
-                    console.log("Customer created:", response.data); // Log the data from the response
-               } else {
-                    console.warn("No data returned from API");
-               }
-
-               form.resetFields(); // Reset form fields after successful creation
-               setShow(false);     // Close the modal
+          if(response && response.result) {
+               setShow(false);
+               setIsUpdate(!isUpdate);
                toast.success(
-                    <span>
-                         Create a new customer with name <strong>{response.result.name}</strong> successfully!
-                    </span>
-               );
-               setIsCreate(!isCreate);
-          } catch (error) {
-               console.error("Error creating customer:", error); // Log the error details
+                    <span>Update customer with id <strong className="text-sky-600">{customerInfo.customerId}</strong> succesfully!</span>
+               )
           }
+     };
+
+     const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+          const { name, value } = e.target;
+          setCustomerInfo((prevState) => ({
+               ...prevState,
+               [name]: value, // Dynamically update the correct field
+          }));
      };
 
      const handleOpenFileBrowser = () => {
@@ -72,15 +84,17 @@ const CreateCustomerModal = (props: IProps) => {
      return (
           <div>
                <Modal
-                    title="Create Customer"
-                    onCancel={handleCancel}
+                    title="Update Customer"
+                    onCancel={() => setShow(false)}
                     open={show}
                     footer={null}
+                    key={data.customerId} // Change customerId to trigger re-render
                >
                     <Form
                          layout="vertical"
                          onFinish={handleSubmit}
                          form={form} // Link the form instance
+                         initialValues={data} // Use the updated data state
                     >
                          <div className="flex flex-col items-center mb-2 relative">
                               <Avatar
@@ -102,29 +116,33 @@ const CreateCustomerModal = (props: IProps) => {
                               <p className="text-sm text-gray-500">Customer Avatar</p>
                          </div>
 
+                         <Form.Item label="ID" name="customerId">
+                              <Input disabled value={data.customerId} />
+                         </Form.Item>
+
                          <div className="flex gap-2 w-full justify-between">
                               <Form.Item className="w-1/2" label="Name" name="name" rules={[{ required: true }]}>
-                                   <Input />
+                                   <Input name="name" onChange={handleOnChange} value={data.name} />
                               </Form.Item>
 
                               <Form.Item className="w-1/2" label="Phone" name="phone" rules={[{ required: true }]}>
-                                   <Input />
+                                   <Input name="phone" onChange={handleOnChange} value={data.phone} />
                               </Form.Item>
                          </div>
 
                          <div className="flex gap-2 w-full justify-between">
                               <Form.Item className="w-1/2" label="Email" name="email" rules={[{ required: true, type: 'email' }]}>
-                                   <Input />
+                                   <Input name="email" onChange={handleOnChange} value={data.email} />
                               </Form.Item>
 
                               <Form.Item className="w-1/2" label="Address" name="address" rules={[{ required: true }]}>
-                                   <Input />
+                                   <Input name="address" onChange={handleOnChange} value={data.address} />
                               </Form.Item>
                          </div>
 
                          <Form.Item>
                               <Button type="primary" htmlType="submit" className="w-full">
-                                   Create
+                                   Update
                               </Button>
                          </Form.Item>
                     </Form>
@@ -133,4 +151,4 @@ const CreateCustomerModal = (props: IProps) => {
      );
 };
 
-export default CreateCustomerModal;
+export default UpdateCustomerModal;

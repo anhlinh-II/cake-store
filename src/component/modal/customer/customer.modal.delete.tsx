@@ -1,5 +1,5 @@
 import { Button, Modal } from "antd";
-import { deleteCustomer, getAllCustomers } from "../../api";
+import { deleteCustomer, getAllCustomers } from "../../../api";
 import { toast } from "react-toastify";
 
 interface DataType {

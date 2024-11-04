@@ -1,5 +1,5 @@
 import { Button, Modal } from "antd";
-import { deleteReview } from "../../api";
+import { deleteReview } from "../../../api";
 import { toast } from "react-toastify";
 
 interface IReview {

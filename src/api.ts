@@ -1,5 +1,5 @@
 import axios from "axios"
-import { CreateCustomerRequest, CreateProductRequest, CreateReviewRequest, UpdateCustomerRequest, UpdateProductRequest } from "./type"
+import { CreateCustomerRequest, CreateProductRequest, CreateReviewRequest, UpdateCustomerRequest, UpdateProductRequest, UpdateReviewRequest } from "./type"
 
 const BASE_URL = `http://localhost:8080`;
 
@@ -84,4 +84,10 @@ export const deleteReview = async (id: number) => {
      const response = await axios.delete(`${BASE_URL}/api/reviews/${id}`);
 
      return response.data;
+}
+
+export const updateReview = async (request: UpdateReviewRequest) => {
+     const response = await axios.put(`${BASE_URL}/api/reviews`, request)
+
+     return response.data
 }
