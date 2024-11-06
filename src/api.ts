@@ -1,5 +1,6 @@
 import axios from "axios"
 import { CreateCustomerRequest, CreateProductRequest, CreateReviewRequest, UpdateCustomerRequest, UpdateProductRequest, UpdateReviewRequest } from "./type"
+import { ExperimentFilled } from "@ant-design/icons";
 
 const BASE_URL = `http://localhost:8080`;
 
@@ -89,5 +90,11 @@ export const deleteReview = async (id: number) => {
 export const updateReview = async (request: UpdateReviewRequest) => {
      const response = await axios.put(`${BASE_URL}/api/reviews`, request)
 
-     return response.data
+     return response.data;
+}
+
+export const getReviewByProduct = async (id: string) => {
+     const response = await axios.get(`${BASE_URL}/api/reviews/product/${id}`)
+
+     return response.data;
 }

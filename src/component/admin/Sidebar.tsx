@@ -88,7 +88,7 @@ const SideBar = () => {
                          >
                               Reviews
                          </MenuItem>
-                         <MenuItem
+                         {/* <MenuItem
                               active={active === "reels" ? true : false}
                               onClick={() => setActive("reels")}
                               rootStyles={{ padding: "5px" }}
@@ -123,7 +123,7 @@ const SideBar = () => {
                               icon={<RiShipFill />}
                          >
                               Suppliers
-                         </MenuItem>
+                         </MenuItem> */}
                     </Menu>
                </Sidebar>
           </div>

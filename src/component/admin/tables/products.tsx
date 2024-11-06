@@ -5,6 +5,7 @@ import DeleteProductModal from "../../modal/product/product.modal.delete";
 import { IoMdAdd } from "react-icons/io";
 import CreateProductModal from "../../modal/product/product.modal.create";
 import { getAllProducts } from "../../../api";
+import ReviewByProductModal from "../../modal/review/ReviewByProduct";
 
 interface IProduct {
      productId: string;
@@ -30,7 +31,6 @@ const Product = () => {
                supplierId: 4
           }
      )
-
      const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
      const [deleteProductData, setDeleteProductData] = useState<IProduct>(
           {
@@ -43,15 +43,19 @@ const Product = () => {
                supplierId: 4
           }
      )
+     const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
+
+     const [showReviewModal, setShowReviewModal] = useState<boolean>(false)
+     const [productId, setProductId] = useState<string>('');
+     const [productName, setProductName] = useState<string>('');
 
      const [totalProducts, setTotalProducts] = useState<number>(0);
      const [products, setProducts] = useState<IProduct[]>([]);
 
-     const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
 
      const [isCreate, setIsCreate] = useState<boolean>(false);
      const [isDelete, setIsDelete] = useState<boolean>(false);
-     const [isUpdate, setIsUpdate  ] = useState<boolean>(false);
+     const [isUpdate, setIsUpdate] = useState<boolean>(false);
 
      useEffect(() => {
           const fetchProducts = async () => {
@@ -103,16 +107,25 @@ const Product = () => {
                key: 'action',
                render: (_, record) => (
                     <Space size="middle">
-                         <Button onClick={() => handleUpdate(record)} type="primary">
+                         <Button onClick={() => handleSeeReview(record.productId, record.name)} className="bg-sky-600 font-semibold text-white">
+                              See All Review
+                         </Button>
+                         <Button onClick={() => handleUpdate(record)} className="bg-amber-500 font-semibold text-white">
                               Update
                          </Button>
-                         <Button onClick={() => handleDelete(record)} color="danger" variant="solid">
+                         <Button onClick={() => handleDelete(record)} className="font-semibold bg-red-500 text-white">
                               Delete
                          </Button>
                     </Space>
                ),
           },
      ];
+
+     const handleSeeReview = (productId: string, productName: string) => {
+          setShowReviewModal(true);
+          setProductId(productId);
+          setProductName(productName)
+     }
 
      const handleUpdate = (product: IProduct) => {
           setShowUpdateModal(true)
@@ -156,6 +169,12 @@ const Product = () => {
                     setIsCreate={setIsCreate}
                     show={showCreateModal}
                     setShow={setShowCreateModal}
+               />
+               <ReviewByProductModal
+                    show={showReviewModal}
+                    setShow={setShowReviewModal}
+                    productId={productId}
+                    productName={productName}
                />
           </div>
      )
